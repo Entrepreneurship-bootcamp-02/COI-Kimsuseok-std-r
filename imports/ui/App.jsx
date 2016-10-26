@@ -5,13 +5,15 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 
 import Task from './Task.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx'; // Add compo def here
 
-// App component - represents the whole app
+// App compo => 예제 앱 전체를 여기에 정의
 class App extends Component {
+
   handleSubmit(event) {
     event.preventDefault();
 
-    // Find the text field via the React ref
+    // ref="textInput" 를 찾아서 value 를 text 에 대입
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
     Tasks.insert({
@@ -19,7 +21,7 @@ class App extends Component {
       createdAt: new Date(), // current time
     });
 
-    // Clear form
+    // DB instert 후 폼에 있는 값을 ''로 지위줌
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
 
@@ -34,6 +36,10 @@ class App extends Component {
       <div className="container">
         <header>
           <h1>Todo List</h1>
+
+          <AccountsUIWrapper />  {
+              // Add compo tag here  
+          }
 
           <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
             <input
